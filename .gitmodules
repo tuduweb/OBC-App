@@ -1,0 +1,3 @@
+[submodule "3rdparty/obc-foundation"]
+	path = 3rdparty/obc-foundation
+	url = https://github.com/tuduweb/obc-foundation

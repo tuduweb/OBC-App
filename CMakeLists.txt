@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
 
+if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+    message(FATAL_ERROR "
+    FATAL: In-source builds are not allowed.
+           You should create a separate directory for build files.
+           ")
+endif()
+
+
 project(OnlineBoard VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -44,6 +52,17 @@ include(cmake/components/obc-base.cmake)
 
 
 
+include(3rdparty/obc-foundation/OBCFoundation.cmake)
+#message(${OBCFOUNDATION_SOURCES})
+#add_subdirectory(3rdparty/obc-foundation/)
+#target_link_libraries(OnlineBoard PRIVATE spdlog::spdlog)
+
+add_library(obc_baselib STATIC
+    ${OBCFOUNDATION_SOURCES}
+)
+
+target_include_directories(obc_baselib PRIVATE ${OBCFOUNDATION_SOURCES})
+
 #### ui
 #include(cmake/components/obc-ui.cmake)
 #include(cmake/components/obc-ui-qml.cmake)
@@ -61,7 +80,7 @@ set(PROJECT_SOURCES
         #src/PaintingBoard.hpp src/PaintingBoard.cpp
         #src/ui/qml/qml.qrc
         #${OBC_QML_SOURCES}
-        ${OBC_BASE_SOURCES}
+        #${OBC_BASE_SOURCES}
         #${TS_FILES}
 )
 
@@ -90,7 +109,20 @@ endif()
 
 ### add extra qt library
 target_link_libraries(OBCApp
-    PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::WebSockets Qt${QT_VERSION_MAJOR}::Network)
+    PRIVATE Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::WebSockets
+    Qt${QT_VERSION_MAJOR}::Network
+)
+
+target_link_libraries(obc_baselib
+    PRIVATE Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::WebSockets
+    Qt${QT_VERSION_MAJOR}::Network
+)
+
+target_link_libraries(OBCApp PRIVATE obc_baselib)
 
 
 if(FALSE)
@@ -119,3 +151,7 @@ endif()
 
 # 项目中使用第三方库, spdlog
 # target_link_libraries(OnlineBoard PRIVATE spdlog::spdlog)
+
+############
+get_property(dirs DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+message(">>> include_dirs=${dirs}") #打印一下目录情况
