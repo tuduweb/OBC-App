@@ -38,8 +38,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick WebSockets Network NetLinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick WebSockets Network LinguistTools REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Widgets SerialPort Quick WebSockets Network NetLinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Widgets SerialPort Quick WebSockets Network LinguistTools REQUIRED)
 
 if(ANDROID)
     find_package(QT NAMES Qt6 Qt5 COMPONENTS AndroidExtras REQUIRED)
@@ -82,6 +82,16 @@ set(PROJECT_SOURCES
         #${OBC_QML_SOURCES}
         #${OBC_BASE_SOURCES}
         #${TS_FILES}
+
+        src/core/settings/SettingsBackend.cpp
+        src/core/settings/SettingsBackend.hpp
+
+        src/core/handler/BundleHandler.cpp
+        src/core/handler/BundleHandler.hpp
+
+        src/core/handler/LinkHandler.cpp
+        src/core/handler/LinkHandler.hpp
+
 )
 
 
@@ -110,6 +120,8 @@ endif()
 ### add extra qt library
 target_link_libraries(OBCApp
     PRIVATE Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::SerialPort
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::WebSockets
     Qt${QT_VERSION_MAJOR}::Network
@@ -117,6 +129,8 @@ target_link_libraries(OBCApp
 
 target_link_libraries(obc_baselib
     PRIVATE Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::SerialPort
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::WebSockets
     Qt${QT_VERSION_MAJOR}::Network
