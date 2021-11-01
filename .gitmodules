@@ -1,3 +1,6 @@
 [submodule "3rdparty/obc-foundation"]
 	path = 3rdparty/obc-foundation
 	url = https://github.com/tuduweb/obc-foundation
+[submodule "3rdparty/QJsonStruct"]
+	path = 3rdparty/QJsonStruct
+	url = https://github.com/tuduweb/QJsonStruct

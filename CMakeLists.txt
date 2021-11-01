@@ -61,7 +61,14 @@ add_library(obc_baselib STATIC
     ${OBCFOUNDATION_SOURCES}
 )
 
-target_include_directories(obc_baselib PRIVATE ${OBCFOUNDATION_SOURCES})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+target_include_directories(obc_baselib
+    PUBLIC
+    ${OBCFOUNDATION_SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
 #### ui
 #include(cmake/components/obc-ui.cmake)
@@ -80,7 +87,7 @@ set(PROJECT_SOURCES
         #src/PaintingBoard.hpp src/PaintingBoard.cpp
         #src/ui/qml/qml.qrc
         #${OBC_QML_SOURCES}
-        #${OBC_BASE_SOURCES}
+        ${OBC_BASE_SOURCES}
         #${TS_FILES}
 
         src/core/settings/SettingsBackend.cpp
@@ -165,6 +172,8 @@ endif()
 
 # 项目中使用第三方库, spdlog
 # target_link_libraries(OnlineBoard PRIVATE spdlog::spdlog)
+
+include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 
 ############
 get_property(dirs DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)

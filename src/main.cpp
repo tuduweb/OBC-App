@@ -10,6 +10,8 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
+#include "core/handler/ConfigHandler.hpp"
+
 int main(int argc, char *argv[])
 {
     std::cout << "hello world!" << std::endl;
@@ -19,6 +21,10 @@ int main(int argc, char *argv[])
 
     //如果你的应用程序是无界面的，直接使用QCoreApplication即可，如果是gui相关，但没有使用widgets模块的就使用QGuiApplication，否则使用QApplication。
     QApplication app(argc, argv);
+
+    ConfigHandler* configHandler = new ConfigHandler;
+
+    qDebug() << "ConfigHandler : " << configHandler;
 
     QWidget w;
     w.resize(500,400);
@@ -30,6 +36,8 @@ int main(int argc, char *argv[])
         qDebug() << "Description : " << item.description();
         qDebug() << "Manufacturer : " << item.manufacturer();
     }
+
+    delete configHandler;
 
     return app.exec();
 }
