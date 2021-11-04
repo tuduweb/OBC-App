@@ -1,8 +1,7 @@
 #pragma once
-#include <QThread>
-
 #include "plugin/PluginBase.hpp"
 
+#include <QThread>
 #include <QJsonObject>
 
 namespace OBC::core::link{

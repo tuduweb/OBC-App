@@ -7,9 +7,7 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
            ")
 endif()
 
-
-
-#set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # doesnt work
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # doesnt work
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "") # works
 
 IF (APPLE)

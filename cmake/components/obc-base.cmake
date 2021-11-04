@@ -14,5 +14,17 @@ set(OBC_BASE_SOURCES
     
     ${OBC_BASEDIR_CORE}/handler/ConfigHandler.cpp
     ${OBC_BASEDIR_CORE}/handler/ConfigHandler.hpp
+
+    #plugin
+    ${CMAKE_SOURCE_DIR}/src/plugin/PluginBase.hpp
+
+    ## Links
+    ${OBC_BASEDIR_CORE}/link/LinkInterface.cpp
+    ${OBC_BASEDIR_CORE}/link/LinkInterface.hpp
+
+    ${OBC_BASEDIR_CORE}/link/SerialLink.hpp
+    ${OBC_BASEDIR_CORE}/link/SerialLink.hpp
+
+
     #end
 )

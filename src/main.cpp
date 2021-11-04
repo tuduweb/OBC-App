@@ -12,6 +12,8 @@
 
 #include "core/handler/ConfigHandler.hpp"
 
+#include "core/link/SerialLink.hpp"
+
 int main(int argc, char *argv[])
 {
     std::cout << "hello world!" << std::endl;
