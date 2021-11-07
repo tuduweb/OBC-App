@@ -17,6 +17,14 @@ set(OBC_BASE_SOURCES
 
     #plugin
     ${CMAKE_SOURCE_DIR}/src/plugin/PluginBase.hpp
+    ${CMAKE_SOURCE_DIR}/src/plugin/PluginInterface.hpp
+    ${CMAKE_SOURCE_DIR}/src/plugin/PluginInterface.cpp
+    ${CMAKE_SOURCE_DIR}/src/plugin/PluginProcessor.hpp
+    #plugin examples
+    ${CMAKE_SOURCE_DIR}/src/plugin/examples/mock/kernel.hpp
+    ${CMAKE_SOURCE_DIR}/src/plugin/examples/mock/kernel.cpp
+
+
 
     ## Links
     ${OBC_BASEDIR_CORE}/link/LinkInterface.cpp

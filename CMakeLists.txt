@@ -61,7 +61,8 @@ add_library(obc_baselib STATIC
     ${OBCFOUNDATION_SOURCES}
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/plugin/)
 
 target_include_directories(obc_baselib
     PUBLIC

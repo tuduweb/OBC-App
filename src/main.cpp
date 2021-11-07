@@ -14,6 +14,8 @@
 
 #include "core/link/SerialLink.hpp"
 
+#include "plugin/examples/mock/kernel.hpp"
+
 int main(int argc, char *argv[])
 {
     std::cout << "hello world!" << std::endl;
@@ -40,6 +42,9 @@ int main(int argc, char *argv[])
     }
 
     delete configHandler;
+
+    KernelInterface* kernel = new KernelInterface;
+    kernel->CreateKernel();
 
     return app.exec();
 }
