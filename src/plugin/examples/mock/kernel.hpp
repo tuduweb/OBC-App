@@ -15,7 +15,7 @@ class MockKernel : public OBC::Plugin::PluginKernel
 };
 
 //rename to MockKernelInterface
-class KernelInterface : public OBC::Plugin::PluginKernelInterface
+class MockKernelInterface : public OBC::Plugin::PluginKernelInterface
 {
   public:
     virtual std::unique_ptr<OBC::Plugin::PluginKernel> CreateKernel() const override

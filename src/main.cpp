@@ -14,7 +14,9 @@
 
 #include "core/link/SerialLink.hpp"
 
-#include "plugin/examples/mock/kernel.hpp"
+//#include "plugin/examples/mock/kernel.hpp"
+
+#include "plugin/examples/mock/MockPlugin.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -43,8 +45,13 @@ int main(int argc, char *argv[])
 
     delete configHandler;
 
-    KernelInterface* kernel = new KernelInterface;
-    kernel->CreateKernel();
+    // MockKernelInterface* pluginIns = new MockKernelInterface;
+    // auto kernel = pluginIns->CreateKernel();
+
+    // qDebug() << kernel->GetKernelName();
+
+    MockPlugin* plugin = new MockPlugin;
+    plugin->InitializePlugin("settings", QJsonObject{});
 
     return app.exec();
 }

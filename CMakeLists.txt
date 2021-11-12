@@ -50,6 +50,8 @@ endif()
 #### base & core
 include(cmake/components/obc-base.cmake)
 
+include(cmake/components/obc-plugin.cmake)
+
 
 
 include(3rdparty/obc-foundation/OBCFoundation.cmake)
@@ -89,6 +91,7 @@ set(PROJECT_SOURCES
         #src/ui/qml/qml.qrc
         #${OBC_QML_SOURCES}
         ${OBC_BASE_SOURCES}
+        ${OBC_PLUGIN_SOURCES}
         #${TS_FILES}
 
         src/core/settings/SettingsBackend.cpp
