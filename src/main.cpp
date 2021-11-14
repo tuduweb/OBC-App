@@ -16,7 +16,14 @@
 
 //#include "plugin/examples/mock/kernel.hpp"
 
+#include "plugin/PluginInterface.hpp"
 #include "plugin/examples/mock/MockPlugin.hpp"
+
+#include "plugin/PluginProcessor.hpp"
+#include <QPluginLoader>
+
+#include <QObject>
+
 
 int main(int argc, char *argv[])
 {
@@ -50,8 +57,31 @@ int main(int argc, char *argv[])
 
     // qDebug() << kernel->GetKernelName();
 
-    MockPlugin* plugin = new MockPlugin;
-    plugin->InitializePlugin("settings", QJsonObject{});
+    {
+        MockPlugin* plugin = new MockPlugin;
+        plugin->InitializePlugin("settings", QJsonObject{});
+    }
+
+    QPluginLoader* pLoader = new QPluginLoader("/Users/bin/project/obc/OBC-App/src/plugin/examples/mock/build/libObPlugin-examples-Mock.so");
+    QObject *plugin = pLoader->instance();
+
+    if(plugin == nullptr) {
+        const auto errorMessage = pLoader->errorString();
+        qDebug() << "error Message from PluginLoader " << errorMessage;
+    } else {
+
+
+        qDebug() << plugin->objectName();
+        auto pluginInterface = qobject_cast<OBC::Plugin::ObInterface*>(plugin);
+
+        if(pluginInterface == nullptr) {
+            qDebug() << "can not cover plugin into plugin interface!";
+        }
+
+        pluginInterface->InitializePlugin("settings", QJsonObject{});
+        qDebug() << pluginInterface->GetKernel()->GetKernelProtocols();
+
+    }
 
     return app.exec();
 }
