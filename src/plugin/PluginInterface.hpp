@@ -51,5 +51,6 @@ namespace OBC::Plugin
 
 QT_BEGIN_NAMESPACE
 #define ObInterface_IID "com.github.tuduweb.ObPluginInterface"
+//This macro associates the given Identifier (a string literal) to the interface class called ClassName. The Identifier must be unique.
 Q_DECLARE_INTERFACE(OBC::Plugin::ObInterface, ObInterface_IID)
 QT_END_NAMESPACE
