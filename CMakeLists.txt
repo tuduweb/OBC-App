@@ -14,7 +14,7 @@ IF (APPLE)
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/usr/local/opt/qt5/lib/cmake")
 ENDIF()
 
-project(OnlineBoard VERSION 0.1 LANGUAGES CXX)
+project(OBCApp VERSION 0.1 LANGUAGES CXX)
 
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -57,7 +57,7 @@ include(cmake/components/obc-plugin.cmake)
 include(3rdparty/obc-foundation/OBCFoundation.cmake)
 #message(${OBCFOUNDATION_SOURCES})
 #add_subdirectory(3rdparty/obc-foundation/)
-#target_link_libraries(OnlineBoard PRIVATE spdlog::spdlog)
+#target_link_libraries(OBCApp PRIVATE spdlog::spdlog)
 
 add_library(obc_baselib STATIC
     ${OBCFOUNDATION_SOURCES}
@@ -151,16 +151,16 @@ target_link_libraries(OBCApp PRIVATE obc_baselib)
 
 
 if(FALSE)
-    target_compile_definitions(OnlineBoard
+    target_compile_definitions(OBCApp
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 
     if(ANDROID)
-        target_link_libraries(OnlineBoard
+        target_link_libraries(OBCApp
         PRIVATE Qt${QT_VERSION_MAJOR}::AndroidExtras)
     endif()
 
-    set_target_properties(OnlineBoard PROPERTIES
+    set_target_properties(OBCApp PROPERTIES
         MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
         MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
         MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -169,16 +169,19 @@ if(FALSE)
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(OnlineBoard)
-    qt_finalize_executable(OnlineBoard)
+    qt_import_qml_plugins(OBCApp)
+    qt_finalize_executable(OBCApp)
 endif()
 
 
 # 项目中使用第三方库, spdlog
-# target_link_libraries(OnlineBoard PRIVATE spdlog::spdlog)
+# target_link_libraries(OBCApp PRIVATE spdlog::spdlog)
 
 include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 
 ############
 get_property(dirs DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 message(">>> include_dirs=${dirs}") #打印一下目录情况
+
+
+add_subdirectory(./examples)

@@ -6,6 +6,8 @@
 #include <QApplication>
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QLabel>
 
 #include <QSerialPort>
 #include <QSerialPortInfo>
@@ -17,8 +19,10 @@
 //#include "plugin/examples/mock/kernel.hpp"
 
 #include "plugin/PluginInterface.hpp"
-#include "plugin/examples/mock/MockPlugin.hpp"
+#include "plugin/GUIPluginInterface.hpp"
 
+#include "plugin/examples/mock/MockPlugin.hpp"
+#include "plugin/examples/mock/MockGUI.hpp"
 #include "plugin/PluginProcessor.hpp"
 #include <QPluginLoader>
 
@@ -41,15 +45,18 @@ int main(int argc, char *argv[])
 
     QWidget w;
     w.resize(500,400);
+    QVBoxLayout* layout = new QVBoxLayout;
+    w.setLayout(layout);
     w.show();
 
+#if 0
     QList<QSerialPortInfo> portList = QSerialPortInfo::availablePorts();
     for(const auto& item : portList) {
         qDebug() << "PortName : " << item.portName();
         qDebug() << "Description : " << item.description();
         qDebug() << "Manufacturer : " << item.manufacturer();
     }
-
+#endif
     delete configHandler;
 
     // MockKernelInterface* pluginIns = new MockKernelInterface;
@@ -58,12 +65,15 @@ int main(int argc, char *argv[])
     // qDebug() << kernel->GetKernelName();
 
     {
-        MockPlugin* plugin = new MockPlugin;
-        plugin->InitializePlugin("settings", QJsonObject{});
+        //MockPlugin* plugin = new MockPlugin;
+        //plugin->InitializePlugin("settings", QJsonObject{});
     }
 
     QPluginLoader* pLoader = new QPluginLoader("/Users/bin/project/obc/OBC-App/src/plugin/examples/mock/build/libObPlugin-examples-Mock.so");
     QObject *plugin = pLoader->instance();
+
+    std::shared_ptr<OBC::Plugin::ObPluginSettingsWidget> currentSettingsWidget;
+
 
     if(plugin == nullptr) {
         const auto errorMessage = pLoader->errorString();
@@ -81,6 +91,19 @@ int main(int argc, char *argv[])
         pluginInterface->InitializePlugin("settings", QJsonObject{});
         qDebug() << pluginInterface->GetKernel()->GetKernelProtocols();
 
+        qDebug() << pLoader->metaData();
+        //outputs:QJsonObject({"IID":"com.github.tuduweb.ObPluginInterface","archreq":0,"className":"MockPlugin","debug":false,"version":331520})
+
+        //qDebug() << pluginInterface->GetGUIInterface()->GetComponents();
+        
+        //使用auto指针似乎让这里的东西直接销毁了?
+        //currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
+        auto currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
+        //qDebug() << widget.get();
+        layout->addWidget(new QLabel("titles"));
+        layout->addWidget(currentSettingsWidget.get());
+        //qDebug() << widget.get()->GetSettings();
+        //layout->addWidget(new MockPluginSettingsWidget());
     }
 
     return app.exec();

@@ -9,6 +9,7 @@ namespace OBC::Plugin
 {
 
     class PluginKernelInterface;
+    class PluginGUIInterface;
     class ObInterface;
 
     /**
@@ -33,15 +34,16 @@ namespace OBC::Plugin
             return kernelInterface;
         }
 
-        // virtual PluginGUIInterface *GetGUIInterface() const final
-        // {
-        //     return guiInterface;
-        // }
+        virtual PluginGUIInterface *GetGUIInterface() const final
+        {
+            return guiInterface;
+        }
 
     protected:
         explicit ObInterface() {};
         QJsonObject settings;
         std::shared_ptr<PluginKernelInterface> kernelInterface;
+        PluginGUIInterface* guiInterface;
     
     };
 };

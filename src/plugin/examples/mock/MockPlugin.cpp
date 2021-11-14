@@ -2,6 +2,8 @@
 
 #include "kernel.hpp"
 
+#include "MockGUI.hpp"
+
 bool MockPlugin::InitializePlugin(const QString &, const QJsonObject &)
 {
 
@@ -13,6 +15,11 @@ bool MockPlugin::InitializePlugin(const QString &, const QJsonObject &)
 
     kernelInterface = std::make_shared<MockKernelInterface>();
 
+    guiInterface = new MockGuiInterface();
+
     qDebug() << "hello Initalize Mock Plugin";
+
+    qDebug() << "gui interface:" << guiInterface;
+
     return true;
 }

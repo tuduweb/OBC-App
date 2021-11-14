@@ -5,6 +5,7 @@ set(OBC_PLUGIN_SOURCES
     ${OBC_PLUGINDIR}/PluginProcessor.hpp
     ${OBC_PLUGINDIR}/PluginInterface.hpp
     ${OBC_PLUGINDIR}/PluginInterface.cpp
+    ${OBC_PLUGINDIR}/GUIPluginInterface.hpp
 
 
     # mock examples linkin
@@ -14,4 +15,6 @@ set(OBC_PLUGIN_SOURCES
     ${OBC_PLUGINDIR}/examples/mock/MockPlugin.hpp
     ${OBC_PLUGINDIR}/examples/mock/MockPlugin.cpp
 
+    ${OBC_PLUGINDIR}/examples/mock/MockGUI.hpp
+    ${OBC_PLUGINDIR}/examples/mock/MockGUI.cpp
 )

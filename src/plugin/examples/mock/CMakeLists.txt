@@ -40,6 +40,9 @@ set(OBC_PLUGIN_MOCK_SOURCES
     #pluginInterface
     ${CMAKE_CURRENT_LIST_DIR}/MockPlugin.hpp
     ${CMAKE_CURRENT_LIST_DIR}/MockPlugin.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/MockGUI.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/MockGUI.cpp
 )
 
 message(${CMAKE_CURRENT_LIST_DIR})

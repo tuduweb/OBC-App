@@ -17,6 +17,7 @@ set(OBPLUGIN_INTERFACE_HEADERS
 
     ${CMAKE_CURRENT_LIST_DIR}/PluginBase.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PluginInterface.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/GUIPluginInterface.hpp
     #${CMAKE_CURRENT_LIST_DIR}/PluginInterfaceModels.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PluginProcessor.hpp
 )
