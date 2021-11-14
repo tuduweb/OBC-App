@@ -97,8 +97,8 @@ int main(int argc, char *argv[])
         //qDebug() << pluginInterface->GetGUIInterface()->GetComponents();
         
         //使用auto指针似乎让这里的东西直接销毁了?
-        //currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
-        auto currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
+        //auto currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();//使用auto会使之直接destory! unque_ptr , shared_ptr
+        currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
         //qDebug() << widget.get();
         layout->addWidget(new QLabel("titles"));
         layout->addWidget(currentSettingsWidget.get());
