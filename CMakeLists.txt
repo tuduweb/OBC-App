@@ -139,7 +139,7 @@ target_link_libraries(OBCApp
 )
 
 target_link_libraries(obc_baselib
-    PRIVATE Qt${QT_VERSION_MAJOR}::Core
+    PUBLIC Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::SerialPort
     Qt${QT_VERSION_MAJOR}::Quick
