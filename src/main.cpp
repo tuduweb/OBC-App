@@ -73,7 +73,8 @@ int main(int argc, char *argv[])
     QObject *plugin = pLoader->instance();
 
     std::shared_ptr<OBC::Plugin::ObPluginSettingsWidget> currentSettingsWidget;
-
+    
+    std::shared_ptr<OBC::Plugin::PluginKernel> ker;
 
     if(plugin == nullptr) {
         const auto errorMessage = pLoader->errorString();
@@ -104,6 +105,18 @@ int main(int argc, char *argv[])
         layout->addWidget(currentSettingsWidget.get());
         //qDebug() << widget.get()->GetSettings();
         //layout->addWidget(new MockPluginSettingsWidget());
+
+        //kernel test
+        ker = pluginInterface->GetKernel()->CreateKernel();
+
+        QLabel* label = new QLabel("pics");
+        layout->addWidget(label);
+
+        QObject::connect(ker.get(), &OBC::Plugin::PluginKernel::OnKernelFrameReceived, [=](const QImage& image) {
+            qDebug() << image;
+            label->setPixmap(QPixmap::fromImage(image));
+        });
+
     }
 
     return app.exec();
