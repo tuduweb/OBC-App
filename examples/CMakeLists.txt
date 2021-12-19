@@ -1,1 +1,3 @@
 add_subdirectory(socket)
+add_subdirectory(remoteManager)
+add_subdirectory(jsonObject)
