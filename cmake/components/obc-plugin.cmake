@@ -9,8 +9,8 @@ set(OBC_PLUGIN_SOURCES
 
 
     # mock examples linkin
-    ${OBC_PLUGINDIR}/examples/mock/kernel.hpp
-    ${OBC_PLUGINDIR}/examples/mock/kernel.cpp
+    ${OBC_PLUGINDIR}/examples/mock/MockKernel.hpp
+    ${OBC_PLUGINDIR}/examples/mock/MockKernel.cpp
 
     ${OBC_PLUGINDIR}/examples/mock/MockPlugin.hpp
     ${OBC_PLUGINDIR}/examples/mock/MockPlugin.cpp

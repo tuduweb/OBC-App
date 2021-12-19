@@ -39,6 +39,11 @@ namespace OBC::Plugin
             return guiInterface;
         }
 
+        virtual const QJsonObject GetSettngs() const final
+        {
+            return settings;
+        }
+
     protected:
         explicit ObInterface() {};
         QJsonObject settings;

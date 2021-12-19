@@ -32,10 +32,9 @@ include_directories(${OBPLUGIN_INTERFACE_INCLUDE_DIR})
 
 
 set(OBC_PLUGIN_MOCK_SOURCES
-
     #kernels
-    ${CMAKE_CURRENT_LIST_DIR}/kernel.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/kernel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/MockKernel.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/MockKernel.cpp
 
     #pluginInterface
     ${CMAKE_CURRENT_LIST_DIR}/MockPlugin.hpp

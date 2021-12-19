@@ -16,7 +16,7 @@
 
 #include "core/link/SerialLink.hpp"
 
-//#include "plugin/examples/mock/kernel.hpp"
+//#include "plugin/examples/mock/MockKernel.hpp"
 
 #include "plugin/PluginInterface.hpp"
 #include "plugin/GUIPluginInterface.hpp"
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
         //qDebug() << pluginInterface->GetGUIInterface()->GetComponents();
         
         //使用auto指针似乎让这里的东西直接销毁了?
-        //auto currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();//使用auto会使之直接destory! unque_ptr , shared_ptr
+        //auto currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();//使用auto会使之直接destory! unque_ptr , shared_ptr 应该是作用域的区别
         currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
         //qDebug() << widget.get();
         layout->addWidget(new QLabel("titles"));

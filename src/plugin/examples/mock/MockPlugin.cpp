@@ -1,6 +1,6 @@
 #include "MockPlugin.hpp"
 
-#include "kernel.hpp"
+#include "MockKernel.hpp"
 
 #include "MockGUI.hpp"
 

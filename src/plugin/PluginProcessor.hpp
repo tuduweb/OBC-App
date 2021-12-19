@@ -11,6 +11,11 @@ namespace OBC::Plugin{
         virtual ~PluginKernel(){};
 
         virtual QString GetKernelName() const = 0;
+    
+    signals:
+        void OnKernelLogAvailable(const QString &);
+        void OnKernelFrameReceived(const QImage &);
+    
     private:
         QString __qvKernelId;
     };

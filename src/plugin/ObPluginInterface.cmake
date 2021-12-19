@@ -20,6 +20,7 @@ set(OBPLUGIN_INTERFACE_HEADERS
     ${CMAKE_CURRENT_LIST_DIR}/GUIPluginInterface.hpp
     #${CMAKE_CURRENT_LIST_DIR}/PluginInterfaceModels.hpp
     ${CMAKE_CURRENT_LIST_DIR}/PluginProcessor.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/handler/KernelHandler.hpp
 )
 
 set(OBPLUGIN_INTERFACE_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR})
