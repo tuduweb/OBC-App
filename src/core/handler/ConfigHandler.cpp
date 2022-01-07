@@ -10,9 +10,11 @@ namespace OBC::core::handler{
 
     ConfigHandler::ConfigHandler(QObject *parent) : QObject(parent)
     {
+        QString configPath = OBC_CONFIG_DIR;
+
         //DEBUG("ConnectionHandler Constructor.");
-        const auto bundleJson = JsonFromString(StringFromFile(OBC_CONFIG_DIR + "bundles.json"));
-        const auto commJson = JsonFromString(StringFromFile(OBC_CONFIG_DIR + "links.json"));
+        const auto bundleJson = JsonFromString(StringFromFile(configPath + "bundles.json"));
+        const auto commJson = JsonFromString(StringFromFile(configPath + "links.json"));
 
         qDebug() << JsonToString(bundleJson);
 

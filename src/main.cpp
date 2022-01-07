@@ -28,96 +28,72 @@
 
 #include <QObject>
 
+#include "core/handler/ConfigHandler.hpp"
+#include "core/settings/SettingsBackend.hpp"
+
+#include "base/OBCBaseHeader.hpp"
+
+#include "ui/widgets/OBCWidgetApplication.hpp"
+
+#define OBC_VERSION_STRING "1.2.3"
 
 int main(int argc, char *argv[])
 {
-    std::cout << "hello world!" << std::endl;
-    qDebug() << "hello QT5!";
 
-    qDebug() << Base64Encode("hello world");
+    //
+    // This line must be called before any other ones, since we are using these
+    // values to identify instances.
+    QCoreApplication::setApplicationVersion(OBC_VERSION_STRING);
 
-    //如果你的应用程序是无界面的，直接使用QCoreApplication即可，如果是gui相关，但没有使用widgets模块的就使用QGuiApplication，否则使用QApplication。
-    QApplication app(argc, argv);
-
-    ConfigHandler* configHandler = new ConfigHandler;
-
-    qDebug() << "ConfigHandler : " << configHandler;
-
-    QWidget w;
-    w.resize(500,400);
-    QVBoxLayout* layout = new QVBoxLayout;
-    w.setLayout(layout);
-    w.show();
-
-#if 0
-    QList<QSerialPortInfo> portList = QSerialPortInfo::availablePorts();
-    for(const auto& item : portList) {
-        qDebug() << "PortName : " << item.portName();
-        qDebug() << "Description : " << item.description();
-        qDebug() << "Manufacturer : " << item.manufacturer();
-    }
+#ifdef QT_DEBUG
+    QCoreApplication::setApplicationName("obc_debug");
+#else
+    QCoreApplication::setApplicationName("obc");
 #endif
-    delete configHandler;
 
-    // MockKernelInterface* pluginIns = new MockKernelInterface;
-    // auto kernel = pluginIns->CreateKernel();
+#ifdef OBC_GUI
+    QApplication::setApplicationDisplayName("obc");
+#endif
 
-    // qDebug() << kernel->GetKernelName();
+#ifdef QT_DEBUG
+    std::cerr << "WARNING: ================ This is a debug build, many features are not stable enough. ================" << std::endl;
+#endif
 
+    if (qEnvironmentVariableIsSet("OBC_NO_SCALE_FACTORS"))
     {
-        //MockPlugin* plugin = new MockPlugin;
-        //plugin->InitializePlugin("settings", QJsonObject{});
+        //LOG("Force set QT_SCALE_FACTOR to 1.");
+        //DEBUG("UI", "Original QT_SCALE_FACTOR was:", qEnvironmentVariable("QT_SCALE_FACTOR"));
+        qputenv("QT_SCALE_FACTOR", "1");
+    }
+    else
+    {
+        //DEBUG("High DPI scaling is enabled.");
+#ifndef OBC_QT6
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+#ifdef OBC_GUI
+        QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
+#endif
     }
 
-    QPluginLoader* pLoader = new QPluginLoader("/Users/bin/project/obc/OBC-App/src/plugin/examples/mock/build/libObPlugin-examples-Mock.so");
-    QObject *plugin = pLoader->instance();
+#ifndef OBC_QT6
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
 
-    std::shared_ptr<OBC::Plugin::ObPluginSettingsWidget> currentSettingsWidget;
-    
-    std::shared_ptr<OBC::Plugin::PluginKernel> ker;
+    OBCApplication app(argc, argv);
 
-    if(plugin == nullptr) {
-        const auto errorMessage = pLoader->errorString();
-        qDebug() << "error Message from PluginLoader " << errorMessage;
-    } else {
-
-
-        qDebug() << plugin->objectName();
-        auto pluginInterface = qobject_cast<OBC::Plugin::ObInterface*>(plugin);
-
-        if(pluginInterface == nullptr) {
-            qDebug() << "can not cover plugin into plugin interface!";
-        }
-
-        pluginInterface->InitializePlugin("settings", QJsonObject{});
-        qDebug() << pluginInterface->GetKernel()->GetKernelProtocols();
-
-        qDebug() << pLoader->metaData();
-        //outputs:QJsonObject({"IID":"com.github.tuduweb.ObPluginInterface","archreq":0,"className":"MockPlugin","debug":false,"version":331520})
-
-        //qDebug() << pluginInterface->GetGUIInterface()->GetComponents();
-        
-        //使用auto指针似乎让这里的东西直接销毁了?
-        //auto currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();//使用auto会使之直接destory! unque_ptr , shared_ptr 应该是作用域的区别
-        currentSettingsWidget = pluginInterface->GetGUIInterface()->GetSettingsWidget();
-        //qDebug() << widget.get();
-        layout->addWidget(new QLabel("titles"));
-        layout->addWidget(currentSettingsWidget.get());
-        //qDebug() << widget.get()->GetSettings();
-        //layout->addWidget(new MockPluginSettingsWidget());
-
-        //kernel test
-        ker = pluginInterface->GetKernel()->CreateKernel();
-
-        QLabel* label = new QLabel("pics");
-        layout->addWidget(label);
-
-        QObject::connect(ker.get(), &OBC::Plugin::PluginKernel::OnKernelFrameReceived, [=](const QImage& image) {
-            qDebug() << image;
-            label->setPixmap(QPixmap::fromImage(image));
-        });
-
+    if (!app.Initialize())
+    {
+        qDebug() << "init error";
+        return -1;
     }
 
-    return app.exec();
+    app.RunOBC();
+    const auto reason = app.GetExitReason();
+
+
+
+    return reason;
 }

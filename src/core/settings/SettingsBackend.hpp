@@ -5,7 +5,7 @@
 namespace OBC::core::settings
 {
     void SaveGlobalSettings();
-    bool LocateConfiguration();
+    bool LoadConfiguration();
     void SetConfigDirPath(const QString &path);
     bool CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig);
 }
