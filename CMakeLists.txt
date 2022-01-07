@@ -59,6 +59,11 @@ include(3rdparty/obc-foundation/OBCFoundation.cmake)
 #add_subdirectory(3rdparty/obc-foundation/)
 #target_link_libraries(OBCApp PRIVATE spdlog::spdlog)
 
+add_definitions(-DOBC_GUI_QWIDGETS)
+include(cmake/components/obc-ui-widget.cmake)
+list(APPEND OBC_UI_SOURCES ${OBC_UI_WIDGET_SOURCES})
+
+
 add_library(obc_baselib STATIC
     ${OBCFOUNDATION_SOURCES}
 )
@@ -92,6 +97,7 @@ set(PROJECT_SOURCES
         #${OBC_QML_SOURCES}
         ${OBC_BASE_SOURCES}
         ${OBC_PLUGIN_SOURCES}
+        ${OBC_UI_SOURCES}
         #${TS_FILES}
 
         src/core/settings/SettingsBackend.cpp

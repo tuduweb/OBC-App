@@ -1,5 +1,9 @@
 #pragma once
 #include "ui/OBCPlatformApplication.hpp"
+
+//class MainWindow;
+#include "ui/widgets/windows/w_MainWindow.hpp"
+
 namespace OBC
 {
     class OBCWidgetApplication : public OBCPlatformApplication
@@ -10,9 +14,23 @@ namespace OBC
 
         private:
             OBCExitReason runOBCInternal() override {
+
+                //setQuitOnLastWindowClosed(false);
+
+                //show window
+                mainWindow = new MainWindow();
+	            mainWindow->show();
+
+
                 return (OBCExitReason) exec();
             };
-            void terminateUIInternal() override {/*quit ui*/};
+            void terminateUIInternal() override {
+                delete mainWindow;
+                //    StringToFile(JsonToString(UIStates), QV2RAY_CONFIG_DIR + QV2RAY_WIDGETUI_STATE_FILENAME);
+            };
+
+        private:
+            MainWindow* mainWindow;
 
     };
 };

@@ -19,6 +19,7 @@ set(OBC_BASE_SOURCES
     ${OBC_BASEDIR_BASE}/OBCBaseApplication.cpp
     ${OBC_BASEDIR_UI}/OBCPlatformApplication.hpp
     ${OBC_BASEDIR_UI}/widgets/OBCWidgetApplication.hpp
+    ${OBC_BASEDIR_UI}/widgets/OBCWidgetApplication.cpp
 
     # move to extra file
     ${OBC_BASEDIR_CORE}/settings/SettingsBackend.cpp

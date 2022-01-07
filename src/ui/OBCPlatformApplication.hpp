@@ -4,11 +4,13 @@
 
 #include "core/settings/SettingsBackend.hpp"
 
-class OBCPlatformApplication :public QCoreApplication, public OBCApplicationInterface
+#include <QApplication>
+
+class OBCPlatformApplication :public QApplication, public OBCApplicationInterface
 {
     Q_OBJECT
     public:
-        OBCPlatformApplication(int &argc, char *argv[]) : OBCApplicationInterface(), QCoreApplication(argc, argv){};
+        OBCPlatformApplication(int &argc, char *argv[]) : OBCApplicationInterface(), QApplication(argc, argv){};
         virtual ~OBCPlatformApplication(){};
 
         virtual OBCExitReason GetExitReason() const final
