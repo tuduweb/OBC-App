@@ -15,4 +15,10 @@ class MainWindow
 public:
 	MainWindow(QWidget* parent = Q_NULLPTR);
 	~MainWindow() override {};
+
+protected slots:
+	void on_remotes_btn_clicked();
+
+protected:
+	//void initUIVideo();
 };

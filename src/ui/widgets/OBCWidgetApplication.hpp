@@ -17,7 +17,11 @@ namespace OBC
 
                 //setQuitOnLastWindowClosed(false);
 
-                //show window
+
+                // debug mode
+
+                /*************** normal ***************/
+                // show window : normal window
                 mainWindow = new MainWindow();
 	            mainWindow->show();
 
