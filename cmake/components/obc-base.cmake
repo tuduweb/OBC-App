@@ -1,6 +1,7 @@
 set(OBC_BASEDIR_COMPONENTS ${CMAKE_SOURCE_DIR}/src/components)
 set(OBC_BASEDIR_CORE ${CMAKE_SOURCE_DIR}/src/core)
 set(OBC_BASEDIR_BASE ${CMAKE_SOURCE_DIR}/src/base)
+set(OBC_BASEDIR_BASE_INTERFACE ${CMAKE_SOURCE_DIR}/src/base/interface)
 set(OBC_BASEDIR_UI ${CMAKE_SOURCE_DIR}/src/ui)
 
 set(OBC_BASE_SOURCES
@@ -36,6 +37,12 @@ set(OBC_BASE_SOURCES
     ${OBC_BASEDIR_CORE}/link/SerialLink.hpp
     ${OBC_BASEDIR_CORE}/link/SerialLink.hpp
 
+
+    #interfaces
+    ${OBC_BASEDIR_BASE_INTERFACE}/StreamInterface.hpp
+
+    #stream
+    ${OBC_BASEDIR_CORE}/stream/camera/RTSPCameraStream.hpp
 
     #end
 )

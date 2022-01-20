@@ -4,6 +4,9 @@
 
 #include "ui/widgets/widgets/NormalDisplayWidget.hpp"
 
+#include "core/stream/camera/RTSPCameraStream.hpp"
+
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -11,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
     videoWidgetLayout->addWidget(display);
+
+    RTSPCameraStream* camera = new RTSPCameraStream();
 }
 
 #include "ui/widgets/editors/w_RemoteEditor.hpp"
