@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QDebug>
 #include <QJsonObject>
 
 #include "utils/OBCHelpers.hpp"
@@ -15,26 +16,27 @@ struct __OBCConfigObjectBase
     JSONSTRUCT_REGISTER(__OBCConfigObjectBase, F(displayName, creationDate, lastUpdatedDate))
 };
 
+//need register to [toJson & fromJson] system
 struct ComponentItemObject
 {
+    int meta = 123;
     int type;
     QJsonObject settings;
 
     //ComponentItemObject(int _type, const QJsonObject _settings) : type(_type), settings(_settings){};
 
     JSONSTRUCT_COMPARE(ComponentItemObject, type, settings)
-    JSONSTRUCT_REGISTER(ComponentItemObject, F(type, settings))
+    JSONSTRUCT_REGISTER(ComponentItemObject, F(type, settings, meta))
 };
 
 struct ComponentObject : __OBCConfigObjectBase
 {
-    QString addr = "127.0.0.1";//默认
-    int port = 5556;
+    QList<ComponentItemObject> components;
 
     ComponentObject() :__OBCConfigObjectBase() {};
 
-    JSONSTRUCT_COMPARE(ComponentObject, addr, port)
-    JSONSTRUCT_REGISTER(ComponentObject, F(addr, port), B(__OBCConfigObjectBase))
+    JSONSTRUCT_COMPARE(ComponentObject, components)
+    JSONSTRUCT_REGISTER(ComponentObject, F(components), B(__OBCConfigObjectBase))
 };
 
 int main(int argc, char *argv[])
@@ -42,6 +44,24 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QJsonObject config = JsonFromString(StringFromFile("C:/Users/bin/Desktop/x64/Debug/config_debug/components.json"));
+
+    ComponentObject container;
+    ComponentItemObject item;
+    item.type = 1;
+    item.settings = { {"type", 123}, {"other", "shuxing"} };
+    item.meta = 2;
+
+    qDebug() << JsonToString(item.toJson());
+    
+    container.components.append(item);
+    container.components.append(item);
+    container.components.append(item);
+    container.components.append(item);
+    container.components.append(item);
+
+    qDebug() << container.components.count();
+    qDebug() << JsonToString(container.toJson());
+    
 
     return app.exec();
 }

@@ -1,6 +1,6 @@
 file(GLOB_RECURSE CPPS  ./*.cpp )
 
-add_executable(remoteManager ${CPPS})
+add_executable(remoteManager ${CPPS} ${OBC_BASE_SOURCES})
 
 target_link_libraries(remoteManager obc_baselib)
 
