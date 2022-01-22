@@ -1,5 +1,4 @@
 #include "NormalDisplayWidget.hpp"
-#include "ui_NormalDisplayWidget.h"
 
 #include <QPainter>
 

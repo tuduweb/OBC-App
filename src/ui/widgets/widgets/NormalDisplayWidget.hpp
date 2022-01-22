@@ -2,7 +2,6 @@
 #include <QWidget>
 #include "ui_NormalDisplayWidget.h"
 
-
 namespace OBC::ui
 {
     class NormalDisplayWidget : public QWidget, public Ui::NormalDisplayWidget
