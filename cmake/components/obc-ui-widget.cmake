@@ -18,6 +18,8 @@ set(_OBC_UI_SOURCES
 
     ${OBC_WIDGETS_UI_BASEDIR}/widgets/NormalDisplayWidget.hpp
     ${OBC_WIDGETS_UI_BASEDIR}/widgets/NormalDisplayWidget.cpp
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/FrameDisplayWidget.cpp
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/FrameDisplayWidget.hpp
 
     ${OBC_WIDGETS_UI_BASEDIR}/editors/w_RemoteEditor.cpp
     ${OBC_WIDGETS_UI_BASEDIR}/editors/w_RemoteEditor.hpp

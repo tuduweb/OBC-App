@@ -6,16 +6,21 @@
 
 #include "core/stream/camera/RTSPCameraStream.hpp"
 
+#include "ui/widgets/widgets/FrameDisplayWidget.hpp"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
     qDebug() << "show show show";
 
-    OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
-    videoWidgetLayout->addWidget(display);
+    //OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
+    //videoWidgetLayout->addWidget(display);
 
     RTSPCameraStream* camera = new RTSPCameraStream();
+
+    FrameDisplayWidget* frameDisplayWidget = new FrameDisplayWidget();
+    videoWidgetLayout->addWidget(frameDisplayWidget);
+
 }
 
 #include "ui/widgets/editors/w_RemoteEditor.hpp"

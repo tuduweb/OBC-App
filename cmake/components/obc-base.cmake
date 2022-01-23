@@ -40,6 +40,8 @@ set(OBC_BASE_SOURCES
 
     #interfaces
     ${OBC_BASEDIR_BASE_INTERFACE}/StreamInterface.hpp
+    ${OBC_BASEDIR_BASE_INTERFACE}/ControlInterface.hpp
+    ${OBC_BASEDIR_BASE_INTERFACE}/DisplayInterface.hpp
 
     #stream
     ${OBC_BASEDIR_CORE}/stream/camera/RTSPCameraStream.hpp
