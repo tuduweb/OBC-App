@@ -63,6 +63,7 @@ add_definitions(-DOBC_GUI_QWIDGETS)
 include(cmake/components/obc-ui-widget.cmake)
 list(APPEND OBC_UI_SOURCES ${OBC_UI_WIDGET_SOURCES})
 
+include(cmake/include-ffmpeg.cmake)
 
 add_library(obc_baselib STATIC
     ${OBCFOUNDATION_SOURCES}
@@ -109,6 +110,8 @@ set(PROJECT_SOURCES
         src/core/handler/LinkHandler.cpp
         src/core/handler/LinkHandler.hpp
 
+        ${FFMPEG_FILES} # need move to other place
+
 )
 
 
@@ -144,7 +147,11 @@ target_link_libraries(obc_baselib
     Qt${QT_VERSION_MAJOR}::Network
 )
 
-target_link_libraries(OBCApp PRIVATE obc_baselib)
+#link ffmpeg lib
+target_link_libraries(OBCApp
+    PRIVATE obc_baselib
+    ffmpeg_lib
+)
 
 
 if(FALSE)

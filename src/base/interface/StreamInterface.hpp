@@ -22,7 +22,7 @@ class StreamInterface : public QObject
 
     public:
         virtual int StreamInit() = 0;
-        // int StreamStart();
+        virtual int StreamStart() = 0;
         // int StreamPause();
         // int StreamStop();
         // int StreamDeinit();

@@ -16,10 +16,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
     //videoWidgetLayout->addWidget(display);
 
-    RTSPCameraStream* camera = new RTSPCameraStream();
+    RTSPCameraStream* rtspStream = new RTSPCameraStream();
 
     FrameDisplayWidget* frameDisplayWidget = new FrameDisplayWidget();
     videoWidgetLayout->addWidget(frameDisplayWidget);
+
+    connect(rtspStream, &RTSPCameraStream::FrameReceived, frameDisplayWidget, &FrameDisplayWidget::OnFrameReceived);
+    
+    rtspStream->StreamInit();
+    rtspStream->StreamStart();
 
 }
 

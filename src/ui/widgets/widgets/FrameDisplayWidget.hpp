@@ -10,11 +10,14 @@ class FrameDisplayWidget : public DisplayInterface
 {
 public:
     FrameDisplayWidget() {
+
+        qDebug() << "hello" << this;
+
         sourceSize = QSize(400, 300);
         sourceScale = sourceSize.width() * 1.0 / sourceSize.height();
-        qDebug() << "hello" << this;
+        
         this->show(); update();
-        };
+    };
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -24,7 +27,7 @@ protected:
     void ResizeUI(const QSize& oldSize, const QSize& newSize);
 
 public slots:
-    void OnReceivedFrame(const QImage& _frame) override { frame = _frame; };
+    void OnFrameReceived(const QImage& _frame) { frame = _frame; update(); };
 
 protected:
 	QSize sourceSize;

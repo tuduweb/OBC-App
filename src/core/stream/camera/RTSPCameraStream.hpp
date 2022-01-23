@@ -4,11 +4,16 @@
 #include "base/interface/StreamInterface.hpp"
 #include "qdebug.h"
 
+#include "3rdparty/OBC-data-ffmpeg/src/RTSPThread.hpp"
+
 class RTSPCameraStream : public StreamInterface
 {
     public:
-        RTSPCameraStream() { qDebug() << "hello stream"; };
-        ~RTSPCameraStream() {};
+        RTSPCameraStream();
+        ~RTSPCameraStream();
 
-        int StreamInit() { return 0; };
+        int StreamInit() override;
+        int StreamStart() override;
+    public:
+        RTSPThread* rtspThread;
 };

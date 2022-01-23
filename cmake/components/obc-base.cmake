@@ -45,6 +45,7 @@ set(OBC_BASE_SOURCES
 
     #stream
     ${OBC_BASEDIR_CORE}/stream/camera/RTSPCameraStream.hpp
+    ${OBC_BASEDIR_CORE}/stream/camera/RTSPCameraStream.cpp
 
     #end
 )
