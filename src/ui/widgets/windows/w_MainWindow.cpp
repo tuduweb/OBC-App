@@ -8,6 +8,8 @@
 
 #include "ui/widgets/widgets/FrameDisplayWidget.hpp"
 
+#include "base/interface/DeviceInterface.hpp"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -25,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     
     rtspStream->StreamInit();
     rtspStream->StreamStart();
+
 
 }
 
