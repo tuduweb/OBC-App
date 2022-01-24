@@ -10,6 +10,8 @@
 
 #include "base/interface/DeviceInterface.hpp"
 
+#include "implement/device/mvcam/MVCAMDevice.hpp"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -27,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     
     rtspStream->StreamInit();
     rtspStream->StreamStart();
+
+    MVCAMDevice* device = new MVCAMDevice();
 
 
 }

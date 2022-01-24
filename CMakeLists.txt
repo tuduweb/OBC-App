@@ -52,6 +52,8 @@ include(cmake/components/obc-base.cmake)
 
 include(cmake/components/obc-plugin.cmake)
 
+include(cmake/components/obc-device.cmake)
+
 
 
 include(3rdparty/obc-foundation/OBCFoundation.cmake)
@@ -111,6 +113,9 @@ set(PROJECT_SOURCES
         src/core/handler/LinkHandler.hpp
 
         ${FFMPEG_FILES} # need move to other place
+
+        # extea device sources
+        ${OBC_DEVICE_SOURCES}
 
 )
 

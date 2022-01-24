@@ -21,8 +21,13 @@ public:
     const QString DeviceName() const { return _deviceName; }
 
 public:
+    DeviceInterface(QObject *parent = nullptr) : QObject(parent) {};
+    ~DeviceInterface() {};
     virtual int DeviceInit() = 0;
     virtual int DeviceDeinit() = 0;
+
+    //check current ins avaliable
+    virtual int checkAvaliable() { return 0; };
 
 signals:
     void DataArrived(const QJsonObject& data);
