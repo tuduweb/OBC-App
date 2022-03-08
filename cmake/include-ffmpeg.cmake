@@ -4,8 +4,8 @@ set(3rdparty_DIR ${CMAKE_SOURCE_DIR}/3rdparty/OBC-data-ffmpeg/)
 
 IF (APPLE)
 
-set(ffmpeg_libs_DIR /usr/local/Cellar/ffmpeg/4.4.1_3/lib)
-set(ffmpeg_headers_DIR /usr/local/Cellar/ffmpeg/4.4.1_3/include)
+set(ffmpeg_libs_DIR /usr/local/opt/ffmpeg@4/lib)
+set(ffmpeg_headers_DIR /usr/local/opt/ffmpeg@4/include)
 
 add_library(avutil SHARED IMPORTED)
 add_library(avcodec SHARED IMPORTED)

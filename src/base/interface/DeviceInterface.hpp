@@ -40,4 +40,6 @@ protected:
 
     std::shared_ptr<StreamInterface> dataStreamer;
     std::shared_ptr<StreamInterface> videoStreamer;
+
+    QVector<StreamInterface*> _streamInstances;
 };

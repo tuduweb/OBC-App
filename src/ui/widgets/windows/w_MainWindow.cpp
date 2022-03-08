@@ -12,6 +12,8 @@
 
 #include "implement/device/mvcam/MVCAMDevice.hpp"
 
+#include "implement/device/PodSystem/PodSystemDevice.hpp"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -20,15 +22,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
     //videoWidgetLayout->addWidget(display);
 
-    RTSPCameraStream* rtspStream = new RTSPCameraStream();
+    PodSystemDevice* podSystem = new PodSystemDevice();
+
 
     FrameDisplayWidget* frameDisplayWidget = new FrameDisplayWidget();
     videoWidgetLayout->addWidget(frameDisplayWidget);
 
-    connect(rtspStream, &RTSPCameraStream::FrameReceived, frameDisplayWidget, &FrameDisplayWidget::OnFrameReceived);
-    
-    rtspStream->StreamInit();
-    rtspStream->StreamStart();
+    // RTSPCameraStream* rtspStream = new RTSPCameraStream();
+    // connect(rtspStream, &RTSPCameraStream::FrameReceived, frameDisplayWidget, &FrameDisplayWidget::OnFrameReceived);
+    // rtspStream->StreamInit();
+    // rtspStream->StreamStart();
+
+    connect(podSystem, &PodSystemDevice::FrameArrived, frameDisplayWidget, &FrameDisplayWidget::OnFrameReceived);
+    podSystem->DeviceInit();
+
 
     MVCAMDevice* device = new MVCAMDevice();
 

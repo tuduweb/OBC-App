@@ -35,18 +35,18 @@ bool SerialLink::_hardwareConnect(QSerialPort::SerialPortError& error, QString& 
 			//QGC::SLEEP::usleep(5000);
 			//qgcApp()->processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
-        delete serialPort;
-		serialPort = nullptr;
+        delete _serialPort;
+		_serialPort = nullptr;
     }
 
 
-	serialPort = new QSerialPort(_serialConfig->portName(), this);
+	_serialPort = new QSerialPort(_serialConfig->portName(), this);
 
 	//QObject::connect(serialPort, static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error), this, &SerialThreadLink::linkError);
 
 	// Try to open the port three times
 	for (int openRetries = 0; openRetries < 3; openRetries++) {
-		if (!serialPort->open(QIODevice::ReadWrite)) {
+		if (!_serialPort->open(QIODevice::ReadWrite)) {
 			//qCDebug(SerialLinkLog) << "Port open failed, retrying";
 			RemoteLog(tr("Port open failed, retrying %1").arg(openRetries));
 			// Wait 250 ms while continuing to run the event loop
@@ -61,20 +61,20 @@ bool SerialLink::_hardwareConnect(QSerialPort::SerialPortError& error, QString& 
 		}
 	}
 
-    if (!serialPort->isOpen()) {
-		qDebug() << "open failed" << serialPort->errorString() << serialPort->error() << _config->name() << "autconnect:" << _config->isAutoConnect();
+    if (!_serialPort->isOpen()) {
+		qDebug() << "open failed" << _serialPort->errorString() << _serialPort->error() << _config->name() << "autconnect:" << _config->isAutoConnect();
 
 		//RemoteLog(QString("端口打开失败:%1 错误代码:%2").arg(serialPort->errorString()).arg(serialPort->error()));
 
-		error = serialPort->error();
-		errorString = serialPort->errorString();
-		serialPort->close();
-		delete serialPort;
-		serialPort = nullptr;
+		error = _serialPort->error();
+		errorString = _serialPort->errorString();
+		_serialPort->close();
+		delete _serialPort;
+		_serialPort = nullptr;
 		return false; // couldn't open serial port
 	}
 
-    serialPort->setDataTerminalReady(true);
+    _serialPort->setDataTerminalReady(true);
 
 
     //////////////////set config
@@ -104,10 +104,10 @@ void SerialLink::linkError(QSerialPort::SerialPortError error)
 	case QSerialPort::ResourceError:
 		// This indicates the hardware was pulled from the computer. For example usb cable unplugged.
 		//_connectionRemoved();
-		qDebug() << error << serialPort->errorString();
+		qDebug() << error << _serialPort->errorString();
 		break;
 	default:
-		qDebug() << error << serialPort->errorString();
+		qDebug() << error << _serialPort->errorString();
 		// You can use the following qDebug output as needed during development. Make sure to comment it back out
 		// when you are done. The reason for this is that this signal is very noisy. For example if you try to
 		// connect to a PixHawk before it is ready to accept the connection it will output a continuous stream

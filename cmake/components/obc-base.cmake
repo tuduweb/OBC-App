@@ -34,9 +34,11 @@ set(OBC_BASE_SOURCES
     ${OBC_BASEDIR_CORE}/link/LinkInterface.cpp
     ${OBC_BASEDIR_CORE}/link/LinkInterface.hpp
 
-    ${OBC_BASEDIR_CORE}/link/SerialLink.hpp
-    ${OBC_BASEDIR_CORE}/link/SerialLink.hpp
+    #${OBC_BASEDIR_CORE}/link/SerialLink.hpp
+    #${OBC_BASEDIR_CORE}/link/SerialLink.cpp
 
+    ${OBC_BASEDIR_CORE}/link/SerialThread.hpp
+    ${OBC_BASEDIR_CORE}/link/SerialThread.cpp
 
     #interfaces
     ${OBC_BASEDIR_BASE_INTERFACE}/StreamInterface.hpp
@@ -48,6 +50,9 @@ set(OBC_BASE_SOURCES
     #stream
     ${OBC_BASEDIR_CORE}/stream/camera/RTSPCameraStream.hpp
     ${OBC_BASEDIR_CORE}/stream/camera/RTSPCameraStream.cpp
+
+    ${OBC_BASEDIR_CORE}/stream/data/SerialDataStream.hpp
+    ${OBC_BASEDIR_CORE}/stream/data/SerialDataStream.cpp
 
     #end
 )
