@@ -29,6 +29,10 @@ set(_OBC_UI_SOURCES
     ${OBC_WIDGETS_UI_BASEDIR}/common/QJsonModel.hpp
     ${OBC_WIDGETS_UI_BASEDIR}/editors/w_JsonEditor.cpp
     ${OBC_WIDGETS_UI_BASEDIR}/editors/w_JsonEditor.hpp
+
+    #interface
+    ${OBC_WIDGETS_UI_BASEDIR}/interface/ControlBaseWidget.hpp
+    ${OBC_WIDGETS_UI_BASEDIR}/interface/ConfigureBaseWidget.hpp
 )
 
 set(OBC_UI_WIDGET_SOURCES ${_OBC_UI_FORMS} ${_OBC_UI_SOURCES})

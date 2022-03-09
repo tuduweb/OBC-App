@@ -5,6 +5,20 @@ RemoteEditor::RemoteEditor(const QJsonObject& rootObject, QWidget *parent) : QDi
     setupUi(this);
 }
 
+RemoteEditor::RemoteEditor(DeviceInterface* deviceIns, QWidget *parent) : QDialog(parent)
+{
+    setupUi(this);
+    if(deviceIns == nullptr)
+    {
+        return;
+    }
+
+    //转移权限交出去了 退出的时候需要交回来
+    configure = deviceIns->GetConfigureWidget();
+    //qDebug() << configure;
+    rightLayout->addWidget(configure.get());
+}
+
 RemoteEditor::~RemoteEditor()
 {
     //

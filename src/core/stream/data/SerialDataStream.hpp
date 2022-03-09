@@ -6,6 +6,10 @@
 
 #include "core/link/SerialThread.hpp"
 
+
+//PortInfo req
+#include <QSerialPortInfo>
+
 class SerialDataStream : public StreamInterface
 {
     public:
@@ -15,6 +19,7 @@ class SerialDataStream : public StreamInterface
         int StreamInit() override;
         int StreamStart() override;
     public:
+        static QStringList getStreamLists();
 
 
     protected:

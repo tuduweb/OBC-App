@@ -5,6 +5,8 @@
 // #include "ui/widgets/common/QJsonModel.hpp"
 #include "ui_w_RemoteEditor.h"
 
+#include "base/interface/DeviceInterface.hpp"
+
 #include <QDialog>
 #include <QJsonObject>
 
@@ -16,8 +18,11 @@ class RemoteEditor
 
 public:
     explicit RemoteEditor(const QJsonObject &rootObject, QWidget *parent = nullptr);
+    explicit RemoteEditor(DeviceInterface* deviceIns, QWidget *parent = nullptr);
     ~RemoteEditor();
     QJsonObject OpenEditor();
+
+    std::shared_ptr<ConfigureBaseWidget> configure;
 
 private:
     QJsonObject originalConfig;

@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QTextDocument>
 
+#include "base/interface/DeviceInterface.hpp"
 
 class MainWindow
 	: public QMainWindow
@@ -18,7 +19,9 @@ public:
 
 protected slots:
 	void on_remotes_btn_clicked();
+	void on_remoteStart_btn_clicked();
 
 protected:
 	//void initUIVideo();
+	DeviceInterface* _device;
 };

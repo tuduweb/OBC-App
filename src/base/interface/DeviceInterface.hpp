@@ -6,6 +6,8 @@
 
 #include "StreamInterface.hpp"
 
+#include "ui/widgets/interface/ControlBaseWidget.hpp"
+#include "ui/widgets/interface/ConfigureBaseWidget.hpp"
 
 class DeviceInterface : public QObject
 {
@@ -29,6 +31,17 @@ public:
     //check current ins avaliable
     virtual int checkAvaliable() { return 0; };
 
+    QWidget* configureWidget() const { return _configureWidget; }
+    QWidget* controlWidget() const { return _controlWidget; };
+
+public:
+    virtual std::unique_ptr<ConfigureBaseWidget> GetConfigureWidget() const final
+    {
+        return createConfigureWidget();
+    }
+protected:
+    virtual std::unique_ptr<ConfigureBaseWidget> createConfigureWidget() const = 0;
+
 signals:
     void DataArrived(const QJsonObject& data);
     void FrameArrived(const QJsonObject& frame);
@@ -42,4 +55,7 @@ protected:
     std::shared_ptr<StreamInterface> videoStreamer;
 
     QVector<StreamInterface*> _streamInstances;
+
+    ConfigureBaseWidget* _configureWidget;
+    ControlBaseWidget* _controlWidget;
 };

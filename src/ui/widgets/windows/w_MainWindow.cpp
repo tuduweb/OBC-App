@@ -14,6 +14,8 @@
 
 #include "implement/device/PodSystem/PodSystemDevice.hpp"
 
+#include "core/stream/data/SerialDataStream.hpp"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -23,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //videoWidgetLayout->addWidget(display);
 
     PodSystemDevice* podSystem = new PodSystemDevice();
-
+    _device = podSystem;
 
     FrameDisplayWidget* frameDisplayWidget = new FrameDisplayWidget();
     videoWidgetLayout->addWidget(frameDisplayWidget);
@@ -34,10 +36,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // rtspStream->StreamStart();
 
     connect(podSystem, &PodSystemDevice::FrameArrived, frameDisplayWidget, &FrameDisplayWidget::OnFrameReceived);
-    podSystem->DeviceInit();
-
+    //podSystem->DeviceInit();
 
     MVCAMDevice* device = new MVCAMDevice();
+
+
+    SerialDataStream* serialStream = new SerialDataStream();
+    serialStream->StreamStart();
+
 
 
 }
@@ -46,8 +52,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 void MainWindow::on_remotes_btn_clicked()
 {
-	RemoteEditor w(QJsonObject{}, this);
-	//RemoteObject object;
+	//RemoteEditor w(QJsonObject{}, this);
+	RemoteEditor w(_device, this);
+	//RemoteObject object;_device
 
-    w.OpenEditor();//其实没有返回数据的吧..
+    QJsonObject conf = w.OpenEditor();//其实没有返回数据的吧..
+}
+
+void MainWindow::on_remoteStart_btn_clicked()
+{
+    //
+    //_device->
+    // link device to other models
 }
