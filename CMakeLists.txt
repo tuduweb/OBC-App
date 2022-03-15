@@ -192,5 +192,12 @@ include(3rdparty/QJsonStruct/QJsonStruct.cmake)
 get_property(dirs DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
 message(">>> include_dirs=${dirs}") #打印一下目录情况
 
+# # The setting of the environment variable only happens at cmake time, and not at build time.
+set(ENV{OBC_CONFIG_PATH} "/Users/bin/qt-project/OBCApp/asserts/config")
+if(DEFINED ENV{OBC_CONFIG_PATH})
+    add_definitions(-DOBC_CONFIG_PATH="$ENV{OBC_CONFIG_PATH}")
+else()
+add_definitions(-DOBC_CONFIG_PATH="")
+endif()
 
 add_subdirectory(./examples)

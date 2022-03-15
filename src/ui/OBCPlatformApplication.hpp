@@ -6,6 +6,8 @@
 
 #include <QApplication>
 
+#include "core/handler/BundleHandler.hpp"
+
 class OBCPlatformApplication :public QApplication, public OBCApplicationInterface
 {
     Q_OBJECT
@@ -30,7 +32,13 @@ class OBCPlatformApplication :public QApplication, public OBCApplicationInterfac
             return true;
         };
 
-        virtual OBCExitReason RunOBC() final { return runOBCInternal(); };
+        virtual OBCExitReason RunOBC() final {
+        
+            BundleManager = new BundleHandler();
+
+            return runOBCInternal();
+        
+        }
 
     protected:
         virtual OBCExitReason runOBCInternal() = 0;
@@ -42,6 +50,15 @@ class OBCPlatformApplication :public QApplication, public OBCApplicationInterfac
         }
 
     private:
-        void quitInternal() {};
+        void quitInternal() {
+
+            terminateUIInternal();
+        
+            delete BundleManager;
+            BundleManager = nullptr;
+        
+        };
+
+    private:
         OBCExitReason _exitReason;
 };
