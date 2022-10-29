@@ -7,6 +7,7 @@
 #include "core/stream/camera/RTSPCameraStream.hpp"
 
 #include "ui/widgets/widgets/FrameDisplayWidget.hpp"
+#include "ui/widgets/widgets/FrameDisplayGLWidget.hpp"
 
 #include "base/interface/DeviceInterface.hpp"
 
@@ -16,18 +17,12 @@
 
 #include "core/stream/data/SerialDataStream.hpp"
 
-//Bundle
-#include "core/handler/BundleHandler.hpp"
+#include "3rdparty/OBC-data-ffmpeg/src/RTSPThread.hpp"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
 {
     setupUi(this);
     qDebug() << "show show show";
-
-    /** Init GUI **/
-    QStringList deviceLists = BundleManager->GetBundleLists();
-    remotes_cb->addItems(deviceLists);
-    
 
     //OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
     //videoWidgetLayout->addWidget(display);
@@ -35,7 +30,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     PodSystemDevice* podSystem = new PodSystemDevice();
     _device = podSystem;
 
-    FrameDisplayWidget* frameDisplayWidget = new FrameDisplayWidget();
+#define DISPLAY_WIDGET FrameDisplayGLWidget
+
+    DISPLAY_WIDGET* frameDisplayWidget = new DISPLAY_WIDGET();
     videoWidgetLayout->addWidget(frameDisplayWidget);
 
     // RTSPCameraStream* rtspStream = new RTSPCameraStream();
@@ -43,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // rtspStream->StreamInit();
     // rtspStream->StreamStart();
 
-    connect(podSystem, &PodSystemDevice::FrameArrived, frameDisplayWidget, &FrameDisplayWidget::OnFrameReceived);
+    //connect(podSystem, &PodSystemDevice::FrameArrived, frameDisplayWidget, &FrameDisplayGLWidget::OnFrameReceived);
     //podSystem->DeviceInit();
 
     MVCAMDevice* device = new MVCAMDevice();
@@ -53,6 +50,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     serialStream->StreamStart();
 
 
+    RTSPThread* rtspThread = new RTSPThread(this);
+
+    rtspThread->setUrl("rtsp://");
+
+    //connect(rtspThread, &RTSPThread::NewFrameArrived, this, [](const QImage& image) {
+    //    qDebug() << image;
+    //    }
+    //    );
+
+    connect(rtspThread, &RTSPThread::NewFrameArrived, frameDisplayWidget, &DISPLAY_WIDGET::OnFrameReceived);
+
+
+    rtspThread->start();
+
 
 }
 
@@ -60,9 +71,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 void MainWindow::on_remotes_btn_clicked()
 {
-	//RemoteEditor w(QJsonObject{}, this);
-	RemoteEditor w(_device, this);
-	//RemoteObject object;_device
+    //RemoteEditor w(QJsonObject{}, this);
+    RemoteEditor w(_device, this);
+    //RemoteObject object;_device
 
     QJsonObject conf = w.OpenEditor();//其实没有返回数据的吧..
 }
