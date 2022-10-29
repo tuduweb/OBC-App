@@ -20,6 +20,14 @@ set(_OBC_UI_SOURCES
     ${OBC_WIDGETS_UI_BASEDIR}/widgets/NormalDisplayWidget.cpp
     ${OBC_WIDGETS_UI_BASEDIR}/widgets/FrameDisplayWidget.cpp
     ${OBC_WIDGETS_UI_BASEDIR}/widgets/FrameDisplayWidget.hpp
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/FrameDisplayGLWidget.cpp
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/FrameDisplayGLWidget.hpp
+
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/yuvrender.cpp
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/yuvrender.hpp
+
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/rgbrender.cpp
+    ${OBC_WIDGETS_UI_BASEDIR}/widgets/rgbrender.hpp
 
     ${OBC_WIDGETS_UI_BASEDIR}/editors/w_RemoteEditor.cpp
     ${OBC_WIDGETS_UI_BASEDIR}/editors/w_RemoteEditor.hpp
