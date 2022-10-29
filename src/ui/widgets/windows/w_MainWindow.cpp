@@ -16,10 +16,18 @@
 
 #include "core/stream/data/SerialDataStream.hpp"
 
+//Bundle
+#include "core/handler/BundleHandler.hpp"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
     qDebug() << "show show show";
+
+    /** Init GUI **/
+    QStringList deviceLists = BundleManager->GetBundleLists();
+    remotes_cb->addItems(deviceLists);
+    
 
     //OBC::ui::NormalDisplayWidget* display = new OBC::ui::NormalDisplayWidget;
     //videoWidgetLayout->addWidget(display);

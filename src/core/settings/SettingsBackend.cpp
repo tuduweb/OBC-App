@@ -21,6 +21,9 @@ namespace OBC::core::settings
 
     bool LoadConfiguration()
     {
+        //export PATH=1222
+        //add_definitions(-DOBC_CONFIG_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
+        const auto usePath = qEnvironmentVariableIsSet("PATH");
 
         //const auto currentPathConfig = qApp->applicationDirPath() + "/config" OBC_CONFIG_DIR_SUFFIX;
 
@@ -31,8 +34,16 @@ namespace OBC::core::settings
         const auto configOBC = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
 
         // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
-        const auto useManualConfigPath = qEnvironmentVariableIsSet(OBC_CONFIG_PATH_ENV_NAME);
-        const auto manualConfigPath = qEnvironmentVariable(OBC_CONFIG_PATH_ENV_NAME);
+        auto useManualConfigPath = qEnvironmentVariableIsSet(OBC_CONFIG_PATH_ENV_NAME);//const
+        auto manualConfigPath = qEnvironmentVariable(OBC_CONFIG_PATH_ENV_NAME);//const
+
+        if(!useManualConfigPath) {
+            if(!QString(OBC_CONFIG_PATH).isEmpty()) {
+                useManualConfigPath = true;
+                manualConfigPath = OBC_CONFIG_PATH;
+            }
+        }
+
         //
         QStringList configFilePaths;
         if (useManualConfigPath)
